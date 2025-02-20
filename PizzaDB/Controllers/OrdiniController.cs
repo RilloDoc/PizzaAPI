@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PizzaDB.Tabs;
 using PizzaDB.Tabs.DTO;
+using System.Reflection.Metadata.Ecma335;
 
 
 
@@ -63,12 +64,20 @@ namespace PizzaDB.Controllers
             return Created(string.Empty, customer);
         }
 
-        [HttpGet("GetCustomer/{id:int}")]
+        [HttpGet("GetCustomer")]
         public async Task<ActionResult> GetCustomer(int id)
         {
-            Customer? customer = await _context.Customers.FindAsync(id);
+            Customer? customer = await _context.Customers.FirstOrDefaultAsync(c=>c.Id==id);
             if (customer is null) return NotFound("Customer Not Found");
-            return Ok(customer);
+            var customerDto = new CustomerResDTO
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                PhoneNumber = customer.PhoneNumber,
+                Address = customer.Address,
+            };
+
+            return Ok(customerDto);
         }
         [HttpPost("AddPizza")]
         public async Task<ActionResult> AddPizzas([FromBody] PizzaListDTO pizzaListDTO)

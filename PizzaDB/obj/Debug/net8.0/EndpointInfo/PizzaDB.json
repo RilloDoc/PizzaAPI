@@ -105,7 +105,7 @@
         }
       }
     },
-    "/api/Ordini/GetCustomer/{id}": {
+    "/api/Ordini/GetCustomer": {
       "get": {
         "tags": [
           "Ordini"
@@ -113,8 +113,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
