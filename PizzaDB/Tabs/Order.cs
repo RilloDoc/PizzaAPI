@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PizzaDB.Tabs.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,11 +16,19 @@ namespace PizzaDB.Tabs
         public int Id { get; set; }
         public string time { get; set; } = time;
         [ForeignKey("CustomerId")]
+        [JsonIgnore]
         public int CustomerId { get; set; } = customerId;
 
         //navigation properties
-        public Customer? Customer { get; set; }
-        public ICollection<Pizza>? Pizzas { get; set; }
+        public virtual Customer? Customer { get; set; }
+        public virtual ICollection<Pizza>? Pizzas { get; set; }
 
+    }
+    public class OrderResDTO
+    {
+        public int Id { get; set; }
+        public string Time { get; set; }
+        public CustomerDTO Customer { get; set; }
+        public List<PizzaResDTO> Pizzas { get; set; }
     }
 }

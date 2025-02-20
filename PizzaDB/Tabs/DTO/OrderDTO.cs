@@ -5,4 +5,5 @@
         public string time { get; set; }
         public int CustomerId { get; set; }
     }
+  
 }

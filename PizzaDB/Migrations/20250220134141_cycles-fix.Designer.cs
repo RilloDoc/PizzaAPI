@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaDB;
 
@@ -10,9 +11,11 @@ using PizzaDB;
 namespace PizzaDB.Migrations
 {
     [DbContext(typeof(OrdiniContext))]
-    partial class OrdiniContextModelSnapshot : ModelSnapshot
+    [Migration("20250220134141_cycles-fix")]
+    partial class cyclesfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,7 +107,7 @@ namespace PizzaDB.Migrations
             modelBuilder.Entity("PizzaDB.Tabs.Pizza", b =>
                 {
                     b.HasOne("PizzaDB.Tabs.Order", "Order")
-                        .WithMany()
+                        .WithMany("Pizzas")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -115,6 +118,11 @@ namespace PizzaDB.Migrations
             modelBuilder.Entity("PizzaDB.Tabs.Customer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("PizzaDB.Tabs.Order", b =>
+                {
+                    b.Navigation("Pizzas");
                 });
 #pragma warning restore 612, 618
         }

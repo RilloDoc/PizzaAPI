@@ -1,22 +1,13 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 
 namespace PizzaDB.Tabs
 {
     public class Pizza
     {
         public Pizza() { }
-        public Pizza(int lunghezza_pizza, int orderId,List<GustoDTO> gustoListDTO)
+        public Pizza(int lunghezza_pizza, int orderId, List<GustoDTO> gustoListDTO)
         {
             this.lunghezza = lunghezza_pizza;
             SetGusto(gustoListDTO);
@@ -39,20 +30,23 @@ namespace PizzaDB.Tabs
 
         public string Gusto { get; set; } = string.Empty;
         public void SetGusto(List<GustoDTO> gustoList)
-    {
-        if (gustoList.Sum(g => g.length) != lunghezza)
         {
-            throw new InvalidOperationException("La somma dei valori di GustoDTO non può superare la lunghezza della pizza.");
+            int sum = gustoList.Sum(g => g.length);
+            if (sum != lunghezza)
+            {
+                throw new InvalidOperationException($"La somma della lunghezza dei singoli gusti ({sum}cm) non corresponde alla lunghezza della pizza ({_lunghezza}cm).");
+            }
+
+
+            Gusto = JsonConvert.SerializeObject(gustoList);
         }
 
-        Gusto = JsonConvert.SerializeObject(gustoList);
-    }
-
         [ForeignKey("OrderId")]
+        [JsonIgnore]
         public int OrderId { get; set; }
 
         //navigation properties
-        public Order? Order { get; set; }
+        public virtual Order order { get; set; }
     }
     public class GustoDTO
     {

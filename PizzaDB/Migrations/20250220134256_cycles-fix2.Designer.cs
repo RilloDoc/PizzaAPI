@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaDB;
 
@@ -10,9 +11,11 @@ using PizzaDB;
 namespace PizzaDB.Migrations
 {
     [DbContext(typeof(OrdiniContext))]
-    partial class OrdiniContextModelSnapshot : ModelSnapshot
+    [Migration("20250220134256_cycles-fix2")]
+    partial class cyclesfix2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

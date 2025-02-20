@@ -40,8 +40,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "pizzaDTO",
-        "Type": "PizzaDB.Tabs.DTO.PizzaDTO",
+        "Name": "pizzaListDTO",
+        "Type": "PizzaDB.Tabs.DTO.PizzaListDTO",
         "IsRequired": true
       }
     ],
@@ -57,7 +57,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[PizzaDB.Tabs.Order, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[PizzaDB.Tabs.OrderResDTO, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PizzaDB.Tabs;
 
 namespace PizzaDB
@@ -12,9 +13,12 @@ namespace PizzaDB
         public OrdiniContext(DbContextOptions<OrdiniContext> options)
                  : base(options)
         {
+
         }
-
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
 
 
     }

@@ -19,7 +19,7 @@ namespace PizzaDB.Tabs
         public string? Address { get; set; } = Address ?? null;
 
         //navigation properties
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     }
 }
