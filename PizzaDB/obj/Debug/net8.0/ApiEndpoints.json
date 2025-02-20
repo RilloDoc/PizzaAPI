@@ -1,0 +1,107 @@
+[
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "AddCustomer",
+    "RelativePath": "api/Ordini/AddCustomer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerDTO",
+        "Type": "PizzaDB.Tabs.DTO.CustomerDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "AddOrder",
+    "RelativePath": "api/Ordini/AddOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderDTO",
+        "Type": "PizzaDB.Tabs.DTO.OrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "AddPizzas",
+    "RelativePath": "api/Ordini/AddPizza",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pizzaDTO",
+        "Type": "PizzaDB.Tabs.DTO.PizzaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "GetAllOrder",
+    "RelativePath": "api/Ordini/GetAllOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[PizzaDB.Tabs.Order, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "GetCustomer",
+    "RelativePath": "api/Ordini/GetCustomer/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PizzaDB.WeatherForecast, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]
