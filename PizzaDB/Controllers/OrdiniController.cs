@@ -18,7 +18,7 @@ namespace PizzaDB.Controllers
 
         public OrdiniController(OrdiniContext context) => _context = context;
 
-        [HttpGet("GetAllOrder")]
+        [HttpGet("GetAllOrders")]
         public async Task<ActionResult<List<OrderResDTO>>> GetAllOrder()
         {
             var orders = await _context.Orders.ToListAsync();
@@ -32,15 +32,20 @@ namespace PizzaDB.Controllers
                 {
                     Name = o.Customer.Name,
                     PhoneNumber = o.Customer.PhoneNumber,
-                    Address = o.Customer.Address
                 },
                 Pizzas = o.Pizzas.Select(p => new PizzaResDTO
                 {
                     Id = p.Id,
                     Lunghezza = p.lunghezza,
                     Gusto = p.Gusto
-                    // OrderId is excluded from the DTO
-                }).ToList()
+                }).ToList(),
+                Address = new AddressResDTO
+                {
+                    Address=o.Address._Address,
+                    City=o.Address.City,
+                    Id = o.Address.Id
+                }
+
             });
             return Ok(orderDtos);
 
@@ -56,9 +61,9 @@ namespace PizzaDB.Controllers
 
         //--------------------------------------------------------------------------------------------
         [HttpPost("AddCustomer")]
-        public async Task<ActionResult> AddCustomer([FromBody] CustomerDTO customerDTO)
+        public async Task<ActionResult<CustomerResDTO>> AddCustomer([FromBody] CustomerDTO customerDTO)
         {
-            var customer = new Customer(customerDTO.Name, customerDTO.PhoneNumber, customerDTO.Address);
+            var customer = new Customer(customerDTO.Name, customerDTO.PhoneNumber);
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
             return Created(string.Empty, customer);
@@ -74,12 +79,11 @@ namespace PizzaDB.Controllers
                 Id = customer.Id,
                 Name = customer.Name,
                 PhoneNumber = customer.PhoneNumber,
-                Address = customer.Address,
             };
 
             return Ok(customerDto);
         }
-        [HttpPost("AddPizza")]
+        [HttpPost("AddPizzas")]
         public async Task<ActionResult> AddPizzas([FromBody] PizzaListDTO pizzaListDTO)
         {
             foreach (var pizzaDTO in pizzaListDTO.PizzaList)
@@ -88,11 +92,49 @@ namespace PizzaDB.Controllers
                 _context.Pizzas.Add(pizza);
             }
             await _context.SaveChangesAsync();
+
+            
             return Created(string.Empty, pizzaListDTO);
 
         }
+        [HttpPost("AddAddress")]
+        public async Task<ActionResult<AddressResDTO>> AddAddress([FromBody] AddressDTO addressDTO)
+        {
+            var address = new Address(addressDTO.Address, addressDTO.City, addressDTO.OrderId);
+            _context.Addresses.Add(address);
+            await _context.SaveChangesAsync();
 
+            var addressResDTO = new AddressResDTO
+            {
+                Id = address.Id,
+                Address = address._Address,
+                City = address.City,
+                OrderId = address.OrderId
+            };
+
+            return Created(string.Empty, addressResDTO);
+        }
+
+        [HttpGet("SearchAddresses")]
+        public async Task<ActionResult<List<AddressResDTO>>> SearchAddresses(string query)
+        {
+
+            var addresses = await _context.Addresses
+                .Where(a => EF.Functions.Like(a._Address, $"%{query}%") || EF.Functions.Like(a.City, $"%{query}%"))
+                .ToListAsync();
+
+            var addressDtos = addresses.Select(a => new AddressResDTO
+            {
+                Id = a.Id,
+                Address = a._Address,
+                City = a.City,
+                OrderId = a.OrderId
+            }).ToList();
+
+            return Ok(addressDtos);
+        }
     }
+  
 }
 
 

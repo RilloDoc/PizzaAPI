@@ -21,6 +21,8 @@ namespace PizzaDB.Tabs
 
         //navigation properties
         public virtual Customer? Customer { get; set; }
+        public virtual Address? Address { get; set; }
+
         public virtual ICollection<Pizza>? Pizzas { get; set; }
 
     }
@@ -30,5 +32,7 @@ namespace PizzaDB.Tabs
         public string Time { get; set; }
         public CustomerDTO Customer { get; set; }
         public List<PizzaResDTO> Pizzas { get; set; }
+
+        public AddressResDTO Address { get; set; }
     }
 }

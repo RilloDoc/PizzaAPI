@@ -11,13 +11,15 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace PizzaDB.Tabs
 {
-    public class Customer(string? Name, string? PhoneNumber, string? Address)
+    public class Customer(string? Name, string? PhoneNumber)
     {
         [Key]
         public int Id { get; set; } 
+
         public string Name { get; set; } = Name ?? string.Empty;
         public string PhoneNumber { get; set; } = PhoneNumber ?? string.Empty;
-        public string Address { get; set; } = Address ?? string.Empty;
+        
+        
 
         //navigation properties
         [ValidateNever]

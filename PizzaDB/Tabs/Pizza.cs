@@ -51,7 +51,8 @@ namespace PizzaDB.Tabs
     public class GustoDTO
     {
         public required int length { get; set; }
+        public required string name { get; set; }
         public required string note { get; set; }
-        public int price { get; set; }
+       
     }
 }

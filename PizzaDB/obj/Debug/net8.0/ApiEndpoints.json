@@ -1,6 +1,32 @@
 [
   {
     "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "AddAddress",
+    "RelativePath": "api/Ordini/AddAddress",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addressDTO",
+        "Type": "AddressDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AddressResDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
     "Method": "AddCustomer",
     "RelativePath": "api/Ordini/AddCustomer",
     "HttpMethod": "POST",
@@ -13,7 +39,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "PizzaDB.Tabs.DTO.CustomerResDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "PizzaDB.Controllers.OrdiniController",
@@ -34,7 +70,7 @@
   {
     "ContainingType": "PizzaDB.Controllers.OrdiniController",
     "Method": "AddPizzas",
-    "RelativePath": "api/Ordini/AddPizza",
+    "RelativePath": "api/Ordini/AddPizzas",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -50,7 +86,7 @@
   {
     "ContainingType": "PizzaDB.Controllers.OrdiniController",
     "Method": "GetAllOrder",
-    "RelativePath": "api/Ordini/GetAllOrder",
+    "RelativePath": "api/Ordini/GetAllOrders",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -82,6 +118,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "SearchAddresses",
+    "RelativePath": "api/Ordini/SearchAddresses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[AddressResDTO, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "PizzaDB.Controllers.WeatherForecastController",

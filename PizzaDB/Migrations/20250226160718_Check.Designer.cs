@@ -11,8 +11,8 @@ using PizzaDB;
 namespace PizzaDB.Migrations
 {
     [DbContext(typeof(OrdiniContext))]
-    [Migration("20250220100614_Gusto")]
-    partial class Gusto
+    [Migration("20250226160718_Check")]
+    partial class Check
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,9 +20,39 @@ namespace PizzaDB.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PizzaDB.Tabs.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("_Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("Addresses");
+                });
 
             modelBuilder.Entity("PizzaDB.Tabs.Customer", b =>
                 {
@@ -32,13 +62,12 @@ namespace PizzaDB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -93,6 +122,17 @@ namespace PizzaDB.Migrations
                     b.ToTable("Pizzas");
                 });
 
+            modelBuilder.Entity("PizzaDB.Tabs.Address", b =>
+                {
+                    b.HasOne("PizzaDB.Tabs.Order", "order")
+                        .WithOne("Address")
+                        .HasForeignKey("PizzaDB.Tabs.Address", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("order");
+                });
+
             modelBuilder.Entity("PizzaDB.Tabs.Order", b =>
                 {
                     b.HasOne("PizzaDB.Tabs.Customer", "Customer")
@@ -106,13 +146,13 @@ namespace PizzaDB.Migrations
 
             modelBuilder.Entity("PizzaDB.Tabs.Pizza", b =>
                 {
-                    b.HasOne("PizzaDB.Tabs.Order", "Order")
+                    b.HasOne("PizzaDB.Tabs.Order", "order")
                         .WithMany("Pizzas")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("order");
                 });
 
             modelBuilder.Entity("PizzaDB.Tabs.Customer", b =>
@@ -122,6 +162,8 @@ namespace PizzaDB.Migrations
 
             modelBuilder.Entity("PizzaDB.Tabs.Order", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Pizzas");
                 });
 #pragma warning restore 612, 618

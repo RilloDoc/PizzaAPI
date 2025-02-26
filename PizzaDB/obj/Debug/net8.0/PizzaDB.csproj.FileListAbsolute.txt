@@ -173,3 +173,4 @@ C:\Users\s.rillosi\source\repos\PizzaDB\PizzaDB\bin\Debug\net8.0\runtimes\win\li
 C:\Users\s.rillosi\source\repos\PizzaDB\PizzaDB\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\s.rillosi\source\repos\PizzaDB\PizzaDB\bin\Debug\net8.0\Castle.Core.dll
 C:\Users\s.rillosi\source\repos\PizzaDB\PizzaDB\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\s.rillosi\source\repos\PizzaDB\PizzaDB\obj\Debug\net8.0\PizzaDB.sourcelink.json

@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Ordini/GetAllOrder": {
+    "/api/Ordini/GetAllOrders": {
       "get": {
         "tags": [
           "Ordini"
@@ -100,7 +100,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResDTO"
+                }
+              }
+            }
           }
         }
       }
@@ -127,7 +144,7 @@
         }
       }
     },
-    "/api/Ordini/AddPizza": {
+    "/api/Ordini/AddPizzas": {
       "post": {
         "tags": [
           "Ordini"
@@ -154,6 +171,101 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Ordini/AddAddress": {
+      "post": {
+        "tags": [
+          "Ordini"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Ordini/SearchAddresses": {
+      "get": {
+        "tags": [
+          "Ordini"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResDTO"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -200,6 +312,46 @@
   },
   "components": {
     "schemas": {
+      "AddressDTO": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressResDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "CustomerDTO": {
         "type": "object",
         "properties": {
@@ -210,8 +362,22 @@
           "phoneNumber": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerResDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
           },
-          "address": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
             "type": "string",
             "nullable": true
           }
@@ -221,6 +387,7 @@
       "GustoDTO": {
         "required": [
           "length",
+          "name",
           "note"
         ],
         "type": "object",
@@ -229,13 +396,13 @@
             "type": "integer",
             "format": "int32"
           },
-          "note": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "price": {
-            "type": "integer",
-            "format": "int32"
+          "note": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -274,6 +441,9 @@
               "$ref": "#/components/schemas/PizzaResDTO"
             },
             "nullable": true
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressResDTO"
           }
         },
         "additionalProperties": false

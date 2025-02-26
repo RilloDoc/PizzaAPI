@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PizzaDB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5de188076628889d39a2da672e634a06e4b2f13e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e92f68182938e4fd3765e60524f1fbbff0b72fbf")]
 [assembly: System.Reflection.AssemblyProductAttribute("PizzaDB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PizzaDB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
