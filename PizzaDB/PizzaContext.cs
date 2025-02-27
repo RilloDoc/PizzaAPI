@@ -10,6 +10,7 @@ namespace PizzaDB
         public DbSet<Order> Orders { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Cities> Cities { get; set; }
 
         public OrdiniContext(DbContextOptions<OrdiniContext> options)
                  : base(options)

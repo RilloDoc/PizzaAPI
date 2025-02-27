@@ -8,13 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Nuova cartella\**" />
-    <Content Remove="Nuova cartella\**" />
-    <EmbeddedResource Remove="Nuova cartella\**" />
-    <None Remove="Nuova cartella\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Fastenshtein" Version="1.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">

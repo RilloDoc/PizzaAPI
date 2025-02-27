@@ -53,6 +53,32 @@
   },
   {
     "ContainingType": "PizzaDB.Controllers.OrdiniController",
+    "Method": "AddMoreAddress",
+    "RelativePath": "api/Ordini/AddMoreAddress",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addressDTOs",
+        "Type": "System.Collections.Generic.List\u00601[[AddressDTO, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[AddressResDTO, PizzaDB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PizzaDB.Controllers.OrdiniController",
     "Method": "AddOrder",
     "RelativePath": "api/Ordini/AddOrder",
     "HttpMethod": "POST",
@@ -122,15 +148,15 @@
   {
     "ContainingType": "PizzaDB.Controllers.OrdiniController",
     "Method": "SearchAddresses",
-    "RelativePath": "api/Ordini/SearchAddresses",
+    "RelativePath": "api/Ordini/SearchAddresses/{address}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "query",
+        "Name": "address",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [

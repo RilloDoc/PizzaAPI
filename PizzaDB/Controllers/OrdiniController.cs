@@ -4,7 +4,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PizzaDB.Tabs;
 using PizzaDB.Tabs.DTO;
+using PizzaDB.utils;
 using System.Reflection.Metadata.Ecma335;
+using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -16,7 +18,13 @@ namespace PizzaDB.Controllers
     {
         private readonly OrdiniContext _context;
 
+
+ 
+
+
         public OrdiniController(OrdiniContext context) => _context = context;
+
+     
 
         [HttpGet("GetAllOrders")]
         public async Task<ActionResult<List<OrderResDTO>>> GetAllOrder()
@@ -114,25 +122,63 @@ namespace PizzaDB.Controllers
 
             return Created(string.Empty, addressResDTO);
         }
+        [HttpPost("AddMoreAddress")]
 
-        [HttpGet("SearchAddresses")]
-        public async Task<ActionResult<List<AddressResDTO>>> SearchAddresses(string query)
+        public async Task<ActionResult<List<AddressResDTO>>> AddMoreAddress([FromBody] List<AddressDTO> addressDTOs)
         {
+            var resList = new List<AddressResDTO>();
+            foreach (var addressDTO in addressDTOs)
+            {
+                var address = new Address(addressDTO.Address, addressDTO.City, addressDTO.OrderId);
+                resList.Add(new AddressResDTO
+                {
+                    Id = address.Id,
+                    Address = address._Address,
+                    City = address.City,
+                    OrderId = address.OrderId
+                });
+                _context.Addresses.Add(address);
+            }
+            await _context.SaveChangesAsync();
 
-            var addresses = await _context.Addresses
-                .Where(a => EF.Functions.Like(a._Address, $"%{query}%") || EF.Functions.Like(a.City, $"%{query}%"))
+
+
+            return Created(string.Empty, resList);
+        }
+
+        [HttpGet("SearchAddresses/{address}")]
+        public async Task<ActionResult<List<AddressResDTO>>> SearchAddresses(string address)
+        {
+            if (address.Length == 0) return BadRequest();
+            var terms = address;
+            var _address = await _context.Addresses
+                .OrderByDescending(x => x._Address.Contains(terms))
+                .ThenBy(a => a._Address)
                 .ToListAsync();
+            List<AddressResDTO> _addressDTO = new List<AddressResDTO>();
+            foreach (var item in _address)
+            {
+                _addressDTO.Add(new AddressResDTO
+                {
+                    Address = item._Address,
+                    City = item.City,
+                    Id = item.Id
+                });
+            }
+            Console.WriteLine(_addressDTO.Count);
 
-            var addressDtos = addresses.Select(a => new AddressResDTO
+            var res = LevenshteinTest.testc(new AddressDTO { Address = address, }, _addressDTO.ToArray()).Take(10);
+
+            var addressDtos = _address.Select(a => new AddressResDTO
             {
                 Id = a.Id,
                 Address = a._Address,
                 City = a.City,
-                OrderId = a.OrderId
             }).ToList();
 
-            return Ok(addressDtos);
+            return Ok(res);
         }
+     
     }
   
 }

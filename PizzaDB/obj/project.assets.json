@@ -63,6 +63,19 @@
           }
         }
       },
+      "Fastenshtein/1.0.10": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Fastenshtein.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Fastenshtein.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1953,6 +1966,27 @@
         "lib/netstandard2.1/Castle.Core.dll",
         "lib/netstandard2.1/Castle.Core.xml",
         "readme.txt"
+      ]
+    },
+    "Fastenshtein/1.0.10": {
+      "sha512": "fZ5DKypgdTkwfchV4fZ5OFFGYu49B8YbUMr6hN6Azl7IziIsyKARqdU3EZt/oQJyV71eQxpY9jL2J1tXb2gvlQ==",
+      "type": "package",
+      "path": "fastenshtein/1.0.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "fastenshtein.1.0.10.nupkg.sha512",
+        "fastenshtein.nuspec",
+        "lib/net452/Fastenshtein.dll",
+        "lib/net452/Fastenshtein.xml",
+        "lib/net8.0/Fastenshtein.dll",
+        "lib/net8.0/Fastenshtein.xml",
+        "lib/netstandard1.0/Fastenshtein.dll",
+        "lib/netstandard1.0/Fastenshtein.xml",
+        "lib/netstandard2.0/Fastenshtein.dll",
+        "lib/netstandard2.0/Fastenshtein.xml",
+        "nuget-readme.md"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -5554,6 +5588,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Fastenshtein >= 1.0.10",
       "Microsoft.AspNetCore.Cors >= 2.3.0",
       "Microsoft.EntityFrameworkCore >= 9.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.2",
@@ -5614,6 +5649,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Fastenshtein": {
+            "target": "Package",
+            "version": "[1.0.10, )"
+          },
           "Microsoft.AspNetCore.Cors": {
             "target": "Package",
             "version": "[2.3.0, )"
